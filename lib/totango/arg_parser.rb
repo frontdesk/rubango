@@ -38,10 +38,10 @@ module Totango
     end
 
     parses_arg :sdr_a, :a, :act, :activity
-    parses_arg :sdr_o, :o, :org, :organization
+    parses_arg :sdr_odn, :o, :org, :organization
     parses_arg :sdr_m, :m, :mod, :module
     parses_arg :sdr_u, :u, :user
-    parses_arg :sdr_ofid, :ofid, :organization_foreign_id
+    parses_arg :sdr_o, :ofid, :organization_foreign_id, :account_id
 
     def to_params
       ArgParser.named_args.map do |arg|

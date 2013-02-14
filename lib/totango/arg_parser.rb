@@ -9,9 +9,10 @@ module Totango
         new.tap do |parser|
           args.each do |arg, val|
             param = registered_args[arg]
-            raise InvalidParamError, "'#{arg}' does not map to a valid param" unless param
-
-            parser[param] = val
+            if param
+              parser[param] = val
+            else
+              parser[arg] = value
           end
         end
       end

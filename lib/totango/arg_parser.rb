@@ -13,6 +13,7 @@ module Totango
               parser[param] = val
             else
               parser[arg] = value
+            end
           end
         end
       end

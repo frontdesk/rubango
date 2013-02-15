@@ -21,9 +21,6 @@ module Totango
       private
 
       def parses_arg(name, *aliases)
-        register_named_arg! name
-        attr_reader name
-
         aliases.unshift(name).each do |argname|
           registered_args[argname] = name
         end
@@ -44,19 +41,21 @@ module Totango
     parses_arg :sdr_m, :m, :mod, :module
     parses_arg :sdr_u, :u, :user
     parses_arg :sdr_o, :ofid, :organization_foreign_id, :account_id
+    parses_arg :sdr_ofid, :sf_account_id
 
     def to_params
-      ArgParser.named_args.map do |arg|
-        [arg, CGI.escape(self[arg].to_s)].join("=")
+      @params.collect do |arg, val|
+        [arg, CGI.escape(val.to_s)].join("=")
       end.join("&")
     end
 
     def [](arg)
-      instance_variable_get :"@#{arg}"
+      @params[arg]
     end
 
     def []=(arg, val)
-      instance_variable_set :"@#{arg}", val
+      @params ||= {}
+      @params[arg] = val
     end
   end
 end
